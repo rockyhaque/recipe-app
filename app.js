@@ -3,8 +3,14 @@ const searchBtn = document.querySelector("#searchBtn");
 const foodDisplayContainer = document.querySelector("#foodDisplayContainer");
 const spinner = document.querySelector("#spinner");
 
+window.addEventListener('load', () => {
+  getData()
+})
+
 // event listener
-searchBtn.addEventListener("click", function () {
+searchBtn.addEventListener("click", getData);
+
+function getData(){
   spinner.classList.remove("hidden");
   const foodName = searchInput.value;
   const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`;
@@ -17,9 +23,27 @@ searchBtn.addEventListener("click", function () {
     .catch((err) => {
       console.log(err);
     });
-});
+}
 
 function displayCards(data) {
+
+  if(!data){
+    foodDisplayContainer.innerHTML = `
+    <div class="flex">
+      <h2 class="text-3xl">No Data Found!</h2>
+    </div>
+    
+    `
+    return;
+
+
+    // const noDataText = foodDisplayContainer.innerHTML = `
+    //   <h2 class="text-3xl">No Data Found!</h2>
+    // `
+    // noDataText.classList.add("text-center")
+    // return;
+  }
+
   let childHtml = "";
   for (const item of data) {
     const { strMealThumb, strMeal, strInstructions } = item;
