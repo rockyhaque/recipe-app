@@ -7,11 +7,10 @@ const topToBtn = document.querySelector("#topToBtn");
 
 // event listener
 window.addEventListener("load", () => {
-  getData(),
-  scrolling()
+  getData(), scrolling();
 });
 
-window.addEventListener("scroll", scrolling)
+window.addEventListener("scroll", scrolling);
 searchBtn.addEventListener("click", getData);
 topToBtn.addEventListener("click", topToScroll);
 
@@ -82,12 +81,13 @@ function displayCards(data) {
 }
 
 function modalFunc(id) {
+  modalInfo.innerHTML = "";
   const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
       // console.log(data);
-      modalInfo.innerHTML = "";
+
       let html = `
         <div class="card card-compact bg-base-100 shadow-xl">
             <figure>
@@ -119,12 +119,19 @@ function topToScroll() {
   });
 }
 
-function scrolling(){
-  
+function scrolling() {
   const px = window.pageYOffset;
-  if(px > 500){
-    topToBtn.classList.remove("opacity-0", "invisible")
-  } else{
-    topToBtn.classList.add("opacity-0", "invisible")
+  if (px > 500) {
+    topToBtn.classList.remove("opacity-0", "invisible");
+  } else {
+    topToBtn.classList.add("opacity-0", "invisible");
   }
 }
+
+
+// light mode dark mode
+
+// const result = document.getElementsByTagName("html")[0].attributes[1];
+// result.value = "light"
+// console.log(result);
+
